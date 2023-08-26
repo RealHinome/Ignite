@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package realhinome.ignite.v1;
+
+option csharp_namespace = "RealHinome.Ignite.V1";
+option go_package = "github.com/realhinome/ignite/proto";
+option java_package = "fr.realhinome.ignite.v1";
+option java_multiple_files = true;
+option java_outer_classname = "IgniteProto";
+
+// The Ignite service provides methods for fraud verification.
+service Ignite {
+    // Verify the transaction for fraud.
+    rpc Verify (VerifyRequest) returns (VerifyResponse);
+}
+
+// Request message for Verify operation.
+message VerifyRequest {
+    // Full name of the customer.
+    string name = 1;
+
+    // ISO 3166-1 alpha-2 country code.
+    string country = 2;
+
+    // Transaction amount.
+    float amount = 3;
+
+    // Gender of the customer (M or F).
+    string gender = 4;
+
+    // Merchant details (e.g., street, name, or category).
+    string merchant = 5;
+}
+
+// Response message for Verify operation.
+message VerifyResponse {
+    // Indicates whether the transaction is flagged as fraud.
+    bool fraud = 1;
+
+    // Accuracy of the fraud detection, represented as a float between 0 and 1.
+    float accuracy = 2;
+}
